@@ -9,6 +9,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: $primary-color;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -16,7 +17,6 @@ a {
   text-decoration: none;
 }
 
-/* Styles de base mobile-first */
 .container {
   padding: 1rem;
 }
@@ -29,7 +29,24 @@ p {
   font-size: 1rem;
 }
 
-/* Styles pour les écrans plus grands */
+.cta {
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+  color: #fff;
+  background-color: #29ADB2;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.cta:hover {
+  color: #29ADB2;
+  background-color: #fff;
+}
+
 @media (min-width: 768px) {
   .container {
     padding: 2rem;
