@@ -1,6 +1,6 @@
-import "./globals.scss";
+import '../styles/global.scss';
+// import '../../styles/variables';
 import { Poppins } from "next/font/google";
-import Navbar from "../components/navbar/Navbar";
 import ClientLayout from "../components/ClientLayout";
 
 const poppins = Poppins({

@@ -1,4 +1,4 @@
-// src/app/page.tsx
+/* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
 import styles from "./page.module.scss";
 

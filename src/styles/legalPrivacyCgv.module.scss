@@ -1,0 +1,26 @@
+@import '../styles/variables.scss';
+
+.legalPrivacyCgvContainer {
+  padding: 20px;
+  background-color: $primary-color;
+}
+
+.legalPrivacyCgvTitle {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: $bleu-principal;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 5px;
+}
+
+.section h2 {
+  font-size: 1.5em;
+}
+
+.section p {
+  font-size: 1em;
+  line-height: 1.5;
+}
