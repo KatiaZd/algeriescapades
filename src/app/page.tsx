@@ -1,8 +1,39 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
 import styles from "./page.module.scss";
+import { prisma } from "../lib/prisma"; // Importer Prisma Client
 
-export default function Home() {
+type Escapade = {
+  id: number;
+  titre: string;
+  description: string;
+  region: string;
+  thematique: string;
+  duree: number;
+  prix: number;
+  photo: {
+    url_photo: string;
+  }[];
+};
+
+async function getEscapades() {
+  try {
+    // Utiliser Prisma pour récupérer les escapades avec les photos incluses
+    const escapades = await prisma.escapade.findMany({
+      include: {
+        photo: true,
+      },
+    });
+    return escapades;
+  } catch (error) {
+    console.error("Error fetching escapades:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const escapades = await getEscapades();
+
   return (
     <div>
       <div className={styles.hero}>
@@ -33,6 +64,21 @@ export default function Home() {
           toute une vie. Prêt à explorer ?
         </p>
         <h3>Nos escapades en Algérie</h3>
+        <div className={styles.escapadesList}>
+          {escapades.map((escapade: Escapade) => (
+            <div key={escapade.id} className={styles.escapade}>
+              <Image
+                src={escapade.photo[0]?.url_photo || "/default-image.jpg"}
+                alt={escapade.titre || "Escapade"}
+                width={300}
+                height={200}
+                className={styles.escapadeImage}
+              />
+              <h4>{escapade.titre}</h4>
+              <p>{escapade.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
