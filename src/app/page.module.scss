@@ -65,3 +65,24 @@
   color: #29ADB2;
   background-color: #fff;
 }
+
+.margin {
+  margin: 25px;
+}
+
+.escapadesList {
+  border: 2px solid blueviolet;
+
+  }
+  
+.align {
+  border: 2px solid green;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+    -ms-flex-pack: start;
+        justify-content: flex-start
+  
+}
+  
