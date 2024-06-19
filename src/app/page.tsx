@@ -1,7 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./page.module.scss";
-import { prisma } from "../lib/prisma";
 
 type Escapade = {
   id: number;
@@ -22,35 +24,25 @@ type Escapade = {
   }[];
 };
 
-async function getEscapades(): Promise<Escapade[]> {
-  try {
-    const escapades = await prisma.escapade.findMany({
-      include: {
-        photo: true,
-      },
-    });
-     console.log("Escapades:", escapades);
-    return escapades as Escapade[];
-  } catch (error) {
-    console.error("Error fetching escapades:", error);
-    return [];
-  }
-}
+export default function Home() {
+  const [showAll, setShowAll] = useState(false);
+  const [escapades, setEscapades] = useState<Escapade[]>([]);
 
-// function cleanText(text: string) {
-//   return text
-//     .replace(/&apos;/g, "'")
-//     .replace(/&quot;/g, '"')
-//     .replace(/&amp;/g, "&")
-//     .replace(/&lt;/g, "<")
-//     .replace(/&gt;/g, ">")
-//     .replace(/&…;/g, "à")
-//     .replace(/Š/g, "è")
-//     .replace(/—/g, "ù");
-// }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/escapades");
+        const data = await response.json();
+        console.log("Fetched escapades: ", data); // Débug
+        setEscapades(data);
+      } catch (error) {
+        console.error("Error fetching escapades:", error);
+      }
+    }
+    fetchData();
+  }, []);
 
-export default async function Home() {
-  const escapades = await getEscapades();
+  const displayedEscapades = showAll ? escapades : escapades.slice(0, 4);
 
   return (
     <div>
@@ -100,8 +92,8 @@ export default async function Home() {
             </a>
           </div>
 
-          <div className={styles.escapadesList}>
-            {escapades.map((escapade: Escapade) => (
+          <div className={styles.escapadesGrid}>
+            {displayedEscapades.map((escapade: Escapade) => (
               <div key={escapade.id} className={styles.escapade}>
                 <Image
                   src={escapade.photo[0]?.url_photo || "/default-image.jpg"}
@@ -127,9 +119,16 @@ export default async function Home() {
               </div>
             ))}
           </div>
+          <div className={styles.viewAllButtonContainer}>
+            <button
+              className={styles.viewAllButton}
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll ? "Voir moins" : "Voir toutes les escapades"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
