@@ -1,66 +1,33 @@
 @import 'variables';
 
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-body {
+.body {
+  background-color: $background-page;
   margin: 0;
   padding: 0;
-  background-color: $primary-color;
-  font-family: 'Poppins', sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.container {
-  padding: 1rem;
-}
-
-h1 {
-  font-size: 2rem;
-}
-
-h3 {
-  text-align: center;
-}
-
-p {
-  font-size: 1rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .cta {
   padding: 1rem 2rem;
   font-size: 1.25rem;
-  color: #fff;
-  background-color: #29ADB2;
+  color: $blanc;
+  background-color: $bleu-principal;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   -webkit-transition: background-color 0.3s ease;
   -o-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
-}
 
-.cta:hover {
-  color: #29ADB2;
-  background-color: #fff;
+  &:hover {
+  color: $bleu-principal;
+  background-color: $blanc;
+  }
 }
 
 @media (min-width: 768px) {
   .container {
     padding: 2rem;
-  }
-
-  h1 {
-    font-size: 3rem;
-  }
-
-  p {
-    font-size: 1.25rem;
   }
 }

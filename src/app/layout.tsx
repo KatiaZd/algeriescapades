@@ -1,5 +1,5 @@
 import '../styles/global.scss';
-// import '../../styles/variables';
+//import '../../styles/variables';
 import { Poppins } from "next/font/google";
 import ClientLayout from "../components/ClientLayout";
 
