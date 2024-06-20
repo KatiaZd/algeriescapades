@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./page.module.scss";
+import FilterModal from "../components/filtre/FilterModal";
 
 type Escapade = {
   id: number;
@@ -13,7 +14,6 @@ type Escapade = {
   votre_escapade: string;
   info_pratique: string;
   region: string;
-  thematique: string;
   duree: number;
   prix: number;
   photo: {
@@ -22,18 +22,54 @@ type Escapade = {
     description: string;
     id_escapade: number;
   }[];
+  thematiques: {
+    thematique: {
+      id: number;
+      nom: string;
+    };
+  }[];
+};
+
+type Filters = {
+  region?: string;
+  thematique?: string;
+  duree?: string;
 };
 
 export default function Home() {
   const [showAll, setShowAll] = useState(false);
   const [escapades, setEscapades] = useState<Escapade[]>([]);
+  const [filters, setFilters] = useState<Filters>({});
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
+  const handleFilterChange = (filter: { type: string; value: string }) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filter.type]: filter.value,
+    }));
+    setIsFilterModalOpen(false);
+  };
+
+  const filteredEscapades = escapades.filter((escapade) => {
+    const regionMatch = filters.region
+      ? escapade.region === filters.region
+      : true;
+    const thematiqueMatch = filters.thematique
+      ? escapade.thematiques?.some((t) => t.thematique.nom === filters.thematique)
+      : true;
+    const dureeMatch = filters.duree
+      ? escapade.duree.toString() === filters.duree
+      : true;
+
+    return regionMatch && thematiqueMatch && dureeMatch;
+  });
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch("/api/escapades");
         const data = await response.json();
-        console.log("Fetched escapades: ", data); // Débug
+        console.log("Fetched escapades: ", data); // Debug
         setEscapades(data);
       } catch (error) {
         console.error("Error fetching escapades:", error);
@@ -42,7 +78,9 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const displayedEscapades = showAll ? escapades : escapades.slice(0, 4);
+  const displayedEscapades = showAll
+    ? filteredEscapades
+    : filteredEscapades.slice(0, 4);
 
   return (
     <div>
@@ -78,18 +116,14 @@ export default function Home() {
 
           <h3>Nos escapades en Algérie</h3>
           <div className={styles.filtreIcons}>
-            <a
-              href="https://www.facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <button onClick={() => setIsFilterModalOpen(true)}>
               <Image
                 src="/assets/icons/filtre.png"
                 alt="Filtre"
                 width={34}
                 height={33}
               />
-            </a>
+            </button>
           </div>
 
           <div className={styles.escapadesGrid}>
@@ -129,6 +163,11 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        onFilterChange={handleFilterChange}
+      />
     </div>
   );
 }
