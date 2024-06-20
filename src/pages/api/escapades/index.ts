@@ -10,6 +10,11 @@ export default async function handler(
       const escapades = await prisma.escapade.findMany({
         include: {
           photo: true,
+          thematiques: {
+            include: {
+              thematique: true,
+            },
+          },
         },
       });
       res.status(200).json(escapades);
