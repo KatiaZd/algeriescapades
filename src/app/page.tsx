@@ -83,7 +83,7 @@ export default function Home() {
     : filteredEscapades.slice(0, 4);
 
   return (
-    <div>
+    <div className={styles.body}>
       <div className={styles.hero}>
         <Image
           src="/assets/img/img-homePage.jpg"
@@ -116,7 +116,10 @@ export default function Home() {
 
           <h3>Nos escapades en Algérie</h3>
           <div className={styles.filtreIcons}>
-            <button onClick={() => setIsFilterModalOpen(true)}>
+            <button
+              className={styles.filtre}
+              onClick={() => setIsFilterModalOpen(true)}
+            >
               <Image
                 src="/assets/icons/filtre.png"
                 alt="Filtre"
@@ -137,9 +140,7 @@ export default function Home() {
                   className={styles.escapadeImage}
                 />
                 <div className={styles.align}>
-                  <h4>
-                    {escapade.titre} - {escapade.duree} jours
-                  </h4>
+                  <h4>{escapade.titre}</h4>
                   <Image
                     src="/assets/icons/heart.png"
                     alt="Filtre"
@@ -153,9 +154,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className={styles.viewAllButtonContainer}>
+          <div className={styles.viewAllEscapadeContainer}>
             <button
-              className={styles.viewAllButton}
+              className={styles.viewAllEscapadeButton}
               onClick={() => setShowAll(!showAll)}
             >
               {showAll ? "Voir moins" : "Voir toutes les escapades"}
