@@ -74,16 +74,20 @@
 
 .escapadesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+  gap: 50px; 
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; 
+  max-width: 1000px; 
+  margin: auto;
 }
   
 .escapade {
   background-color: $background-page;
   overflow: hidden;
   width: 100%;
-  max-width: 350px;
+  max-width: 550px;
   text-align: left;
   position: relative;
 
@@ -93,10 +97,10 @@
     border-radius: 10px;
     -o-object-fit: cover;
         object-fit: cover;
+        
   }
 }
 
- 
 .align {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -112,7 +116,6 @@
     
   p {
     margin: 0 15px 15px;
-    color: #da0000;
   }
 }
 
