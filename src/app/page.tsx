@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./page.module.scss";
 import FilterModal from "../components/filtre/FilterModal";
@@ -42,6 +42,9 @@ export default function Home() {
   const [filters, setFilters] = useState<Filters>({});
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
+  // Create a reference for the target element
+  const escapadesSectionRef = useRef<HTMLHeadingElement>(null);
+
   const handleFilterChange = (filter: { type: string; value: string }) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -55,7 +58,9 @@ export default function Home() {
       ? escapade.region === filters.region
       : true;
     const thematiqueMatch = filters.thematique
-      ? escapade.thematiques?.some((t) => t.thematique.nom === filters.thematique)
+      ? escapade.thematiques?.some(
+          (t) => t.thematique.nom === filters.thematique
+        )
       : true;
     const dureeMatch = filters.duree
       ? escapade.duree.toString() === filters.duree
@@ -82,6 +87,13 @@ export default function Home() {
     ? filteredEscapades
     : filteredEscapades.slice(0, 4);
 
+  // Scroll to the escapades section
+  const handleExploreClick = () => {
+    if (escapadesSectionRef.current) {
+      escapadesSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className={styles.body}>
       <div className={styles.hero}>
@@ -99,7 +111,9 @@ export default function Home() {
             Découvrez l'Algérie autrement avec Algeriescapades : votre porte
             d'entrée vers des aventure inoubliables
           </h2>
-          <button className={styles.cta}>Explorez Maintenant</button>
+          <button className={styles.cta} onClick={handleExploreClick}>
+            Explorez Maintenant
+          </button>
         </div>
       </div>
       <div className={styles.margin}>
@@ -114,7 +128,7 @@ export default function Home() {
             Prêt à explorer ?
           </p>
 
-          <h3>Nos escapades en Algérie</h3>
+          <h3 ref={escapadesSectionRef}>Nos escapades en Algérie</h3>
           <div className={styles.filtreIcons}>
             <button
               className={styles.filtre}
