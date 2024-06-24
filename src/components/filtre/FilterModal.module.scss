@@ -1,5 +1,6 @@
 @import '../../styles/variables';
 @import '../../styles/global.scss';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 .modalOverlay {
   z-index: 5;
@@ -26,6 +27,7 @@
   border-radius: 5px;
   width: 90%;
   max-width: 500px;
+  position: relative;
 }
 
 .closeButton {
@@ -38,12 +40,27 @@
   cursor: pointer;
 }
 
+.filterButton.selected {
+  background-color: $bleu-principal; 
+  color: $blanc;
+}
+
 .filterButton {
-    background-color: $bleu-principal;
-    color: $blanc;
-    padding: 10px;
+    background-color: $blanc;
+    color: $bleu-principal;
     border-radius: 10px;
     border: transparent;
-    margin: 3px;
+    margin: 5px;
     cursor: pointer;
+    border: 1px solid $bleu-principal;
+    font-family: 'Poppins', sans-serif;
+    padding: 15px; 
+}
+
+.filterTitle {
+  text-align: center;
+}
+
+.SubtitleFilter {
+  font-weight: 400;
 }

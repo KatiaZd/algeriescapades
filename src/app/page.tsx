@@ -45,11 +45,8 @@ export default function Home() {
   // Create a reference for the target element
   const escapadesSectionRef = useRef<HTMLHeadingElement>(null);
 
-  const handleFilterChange = (filter: { type: string; value: string }) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filter.type]: filter.value,
-    }));
+  const handleFilterChange = (newFilters: Filters) => {
+    setFilters(newFilters);
     setIsFilterModalOpen(false);
   };
 
@@ -144,43 +141,55 @@ export default function Home() {
           </div>
 
           <div className={styles.escapadesGrid}>
-            {displayedEscapades.map((escapade: Escapade) => (
-              <div key={escapade.id} className={styles.escapade}>
-                <Image
-                  src={escapade.photo[0]?.url_photo || "/default-image.jpg"}
-                  alt={escapade.titre || "Escapade"}
-                  width={300}
-                  height={200}
-                  className={styles.escapadeImage}
-                />
-                <div className={styles.align}>
-                  <h4>{escapade.titre}</h4>
+            {filteredEscapades.length > 0 ? (
+              displayedEscapades.map((escapade: Escapade) => (
+                <div key={escapade.id} className={styles.escapade}>
                   <Image
-                    src="/assets/icons/heart.png"
-                    alt="Filtre"
-                    width={24}
-                    height={23}
+                    src={escapade.photo[0]?.url_photo || "/default-image.jpg"}
+                    alt={escapade.titre || "Escapade"}
+                    width={300}
+                    height={200}
+                    className={styles.escapadeImage}
                   />
+                  <div className={styles.align}>
+                    <h4>{escapade.titre}</h4>
+                    <Image
+                      src="/assets/icons/heart.png"
+                      alt="Filtre"
+                      width={24}
+                      height={23}
+                    />
+                  </div>
+                  <p>
+                    {escapade.duree} jours - {escapade.prix} €
+                  </p>
                 </div>
-                <p>
-                  {escapade.duree} jours - {escapade.prix} €
-                </p>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className={styles.noResults}>
+                Nous n'avons trouvé aucune escapade correspondant à vos critères
+                actuels. <br /> Nous vous suggérons d'explorer d'autres options en
+                ajustant la région, la thématique ou la durée de votre
+                recherche.
+              </p>
+            )}
           </div>
-          <div className={styles.viewAllEscapadeContainer}>
-            <button
-              className={styles.viewAllEscapadeButton}
-              onClick={() => setShowAll(!showAll)}
-            >
-              {showAll ? "Voir moins" : "Voir toutes les escapades"}
-            </button>
-          </div>
+          {filteredEscapades.length > 0 && (
+            <div className={styles.viewAllEscapadeContainer}>
+              <button
+                className={styles.viewAllEscapadeButton}
+                onClick={() => setShowAll(!showAll)}
+              >
+                {showAll ? "Voir moins" : "Voir toutes les escapades"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <FilterModal
         isOpen={isFilterModalOpen}
         onClose={() => setIsFilterModalOpen(false)}
+        filters={filters}
         onFilterChange={handleFilterChange}
       />
     </div>
