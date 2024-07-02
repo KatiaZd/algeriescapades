@@ -1,6 +1,13 @@
 @import '../styles/variables.scss';
 @import '../styles/global.scss';
 
+// .body {
+//   margin: 0;
+//   padding: 0;
+//     -webkit-box-sizing: border-box;
+//           box-sizing: border-box;
+// }
+
 .hero {
   position: relative;
   width: 100%;
@@ -38,7 +45,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-          
 }
 
 .title {
@@ -53,7 +59,6 @@
 .content {
   text-align: center;
 }
-
 
 .filtre {
   margin-bottom: 30px;
@@ -81,6 +86,7 @@
           justify-content: center; 
   max-width: 1000px; 
   margin: auto;
+  cursor: pointer;
 }
   
 .escapade {
@@ -90,6 +96,10 @@
   max-width: 550px;
   text-align: left;
   position: relative;
+    -webkit-text-decoration: none;
+          text-decoration: none ;
+          color:$text-color;
+  
 
   .escapadeImage {
     width: 100%;
@@ -97,7 +107,6 @@
     border-radius: 10px;
     -o-object-fit: cover;
         object-fit: cover;
-        
   }
 }
 
@@ -108,14 +117,14 @@
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-text-decoration: none;
+          text-decoration: none ;
+
   
   h4 {
     margin: 0;
     font-size: 1.2rem;
-  }
-    
-  p {
-    margin: 0 15px 15px;
+    color: $text-color;
   }
 }
 
@@ -125,7 +134,7 @@
 
 .viewAllEscapadeButton {
   padding: 1rem 2rem;
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: $blanc;
   background-color: $bleu-principal;
   border: none;

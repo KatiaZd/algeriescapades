@@ -22,7 +22,7 @@
 }
 
 .modalContent {
-  background: white;
+  background: $background-page;
   padding: 20px;
   border-radius: 5px;
   width: 90%;
@@ -49,7 +49,6 @@
     background-color: $blanc;
     color: $bleu-principal;
     border-radius: 10px;
-    border: transparent;
     margin: 5px;
     cursor: pointer;
     border: 1px solid $bleu-principal;

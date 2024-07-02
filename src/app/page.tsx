@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./page.module.scss";
 import FilterModal from "../components/filtre/FilterModal";
+import Link from "next/link";
 
 type Escapade = {
   id: number;
@@ -41,6 +42,7 @@ export default function Home() {
   const [escapades, setEscapades] = useState<Escapade[]>([]);
   const [filters, setFilters] = useState<Filters>({});
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+    // const router = useRouter();
 
   // Create a reference for the target element
   const escapadesSectionRef = useRef<HTMLHeadingElement>(null);
@@ -84,7 +86,6 @@ export default function Home() {
     ? filteredEscapades
     : filteredEscapades.slice(0, 4);
 
-  // Scroll to the escapades section
   const handleExploreClick = () => {
     if (escapadesSectionRef.current) {
       escapadesSectionRef.current.scrollIntoView({ behavior: "smooth" });
@@ -93,105 +94,112 @@ export default function Home() {
 
   return (
     <div className={styles.body}>
-      <div className={styles.hero}>
-        <Image
-          src="/assets/img/img-homePage.jpg"
-          alt="Beautiful view of Algeria"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-          className={styles.heroImage}
-        />
-        <div className={styles.overlay}>
-          <h1 className={styles.title}>Escapades en Algérie</h1>
-          <h2>
-            Découvrez l'Algérie autrement avec Algeriescapades : votre porte
-            d'entrée vers des aventure inoubliables
-          </h2>
-          <button className={styles.cta} onClick={handleExploreClick}>
-            Explorez Maintenant
-          </button>
-        </div>
-      </div>
-      <div className={styles.margin}>
-        <div className={styles.content}>
-          <p>
-            Découvrez l'Algérie comme jamais auparavant avec Algeriescapades.{" "}
-            <br />
-            Plongez au cœur de paysages époustouflants, de cultures riches et
-            d'aventures inoubliables. <br /> Réservez dès maintenant et
-            laissez-vous guider vers des expériences uniques qui vous feront
-            vivre le voyage de toute une vie. <br />
-            Prêt à explorer ?
-          </p>
-
-          <h3 ref={escapadesSectionRef}>Nos escapades en Algérie</h3>
-          <div className={styles.filtreIcons}>
-            <button
-              className={styles.filtre}
-              onClick={() => setIsFilterModalOpen(true)}
-            >
-              <Image
-                src="/assets/icons/filtre.png"
-                alt="Filtre"
-                width={34}
-                height={33}
-              />
+        <div className={styles.hero}>
+          <Image
+            src="/assets/img/img-homePage.jpg"
+            alt="Beautiful view of Algeria"
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+            className={styles.heroImage}
+          />
+          <div className={styles.overlay}>
+            <h1 className={styles.title}>Escapades en Algérie</h1>
+            <h2>
+              Découvrez l'Algérie autrement avec Algeriescapades : votre porte
+              d'entrée vers des aventure inoubliables
+            </h2>
+            <button className={styles.cta} onClick={handleExploreClick}>
+              Explorez Maintenant
             </button>
           </div>
+        </div>
+        <div className={styles.margin}>
+          <div className={styles.content}>
+            <p>
+              Découvrez l'Algérie comme jamais auparavant avec Algeriescapades.{" "}
+              <br />
+              Plongez au cœur de paysages époustouflants, de cultures riches et
+              d'aventures inoubliables. <br /> Réservez dès maintenant et
+              laissez-vous guider vers des expériences uniques qui vous feront
+              vivre le voyage de toute une vie. <br />
+              Prêt à explorer ?
+            </p>
 
-          <div className={styles.escapadesGrid}>
-            {filteredEscapades.length > 0 ? (
-              displayedEscapades.map((escapade: Escapade) => (
-                <div key={escapade.id} className={styles.escapade}>
-                  <Image
-                    src={escapade.photo[0]?.url_photo || "/default-image.jpg"}
-                    alt={escapade.titre || "Escapade"}
-                    width={300}
-                    height={200}
-                    className={styles.escapadeImage}
-                  />
-                  <div className={styles.align}>
-                    <h4>{escapade.titre}</h4>
-                    <Image
-                      src="/assets/icons/heart.png"
-                      alt="Filtre"
-                      width={24}
-                      height={23}
-                    />
-                  </div>
-                  <p>
-                    {escapade.duree} jours - {escapade.prix} €
-                  </p>
-                </div>
-              ))
-            ) : (
-              <p className={styles.noResults}>
-                Nous n'avons trouvé aucune escapade correspondant à vos critères
-                actuels. <br /> Nous vous suggérons d'explorer d'autres options en
-                ajustant la région, la thématique ou la durée de votre
-                recherche.
-              </p>
-            )}
-          </div>
-          {filteredEscapades.length > 0 && (
-            <div className={styles.viewAllEscapadeContainer}>
+            <h3 ref={escapadesSectionRef}>Nos escapades en Algérie</h3>
+            <div className={styles.filtreIcons}>
               <button
-                className={styles.viewAllEscapadeButton}
-                onClick={() => setShowAll(!showAll)}
+                className={styles.filtre}
+                onClick={() => setIsFilterModalOpen(true)}
               >
-                {showAll ? "Voir moins" : "Voir toutes les escapades"}
+                <Image
+                  src="/assets/icons/filtre.png"
+                  alt="Filtre"
+                  width={34}
+                  height={33}
+                />
               </button>
             </div>
-          )}
+
+            <div className={styles.escapadesGrid}>
+              {filteredEscapades.length > 0 ? (
+                displayedEscapades.map((escapade: Escapade) => (
+                  <div key={escapade.id}>
+                    <Link
+                      href={`/escapades/${escapade.id}`}
+                      className={styles.escapade}
+                    >
+                      <Image
+                        src={
+                          escapade.photo[0]?.url_photo || "/default-image.jpg"
+                        }
+                        alt={escapade.titre || "Escapade"}
+                        width={300}
+                        height={200}
+                        className={styles.escapadeImage}
+                      />
+                      <div className={styles.align}>
+                        <h4>{escapade.titre}</h4>
+                        <Image
+                          src="/assets/icons/heart.png"
+                          alt="Filtre"
+                          width={24}
+                          height={23}
+                        />
+                      </div>
+                      <p>
+                        {escapade.duree} jours - {escapade.prix} €
+                      </p>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <p className={styles.noResults}>
+                  Nous n'avons trouvé aucune escapade correspondant à vos
+                  critères actuels. <br /> Nous vous suggérons d'explorer
+                  d'autres options en ajustant la région, la thématique ou la
+                  durée de votre recherche.
+                </p>
+              )}
+            </div>
+            {filteredEscapades.length > 0 && (
+              <div className={styles.viewAllEscapadeContainer}>
+                <button
+                  className={styles.viewAllEscapadeButton}
+                  onClick={() => setShowAll(!showAll)}
+                >
+                  {showAll ? "Voir moins" : "Voir toutes les escapades"}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
+        <FilterModal
+          isOpen={isFilterModalOpen}
+          onClose={() => setIsFilterModalOpen(false)}
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
       </div>
-      <FilterModal
-        isOpen={isFilterModalOpen}
-        onClose={() => setIsFilterModalOpen(false)}
-        filters={filters}
-        onFilterChange={handleFilterChange}
-      />
-    </div>
   );
 }

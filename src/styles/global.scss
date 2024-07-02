@@ -1,5 +1,5 @@
 @import 'variables';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 .body {
   background-color: $background-page;
@@ -10,10 +10,11 @@
 }
 
 .cta {
-  padding: 1rem 2rem;
-  font-size: 1.25rem;
+  padding: 0.8rem 1.8rem;
+  font-size: 1.2rem;
   color: $blanc;
   background-color: $bleu-principal;
+  font-family: $font;
   border: none;
   border-radius: 5px;
   cursor: pointer;
