@@ -1,9 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import styles from "./EscapadeDetails.module.scss";
+import ReservationForm from "../../components/reservationForm/ReservationForm";
 
 type Escapade = {
   id: number;
@@ -19,46 +20,7 @@ type Escapade = {
   photo?: { id: number; url_photo: string }[];
 };
 
-type Reservation = {
-  id_utilisateur: number;
-  id_escapade: number;
-  date_depart: string;
-  nombre_adulte: number;
-  nombre_enfant: number;
-  assurance_annulation: boolean;
-  prix_total: number;
-};
-
 const EscapadeDetails: React.FC<{ escapade: Escapade }> = ({ escapade }) => {
-  const [reservation, setReservation] = useState<Partial<Reservation>>({
-    id_escapade: escapade.id,
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setReservation((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const response = await fetch("/api/reservations", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reservation),
-    });
-    if (response.ok) {
-      alert("Réservation réussie!");
-      // router.push("/"); // Redirige vers la page d'accueil ou une page de confirmation
-    } else {
-      alert("La réservation a échoué!");
-    }
-  };
-
   return (
     <div className={styles.detailsContainer}>
       <div className={styles.description}>
@@ -88,8 +50,6 @@ const EscapadeDetails: React.FC<{ escapade: Escapade }> = ({ escapade }) => {
         <p>{escapade.prix} € par personne</p>
         <p>{escapade.description}</p>
 
-        {/* Button Reserver */}
-
         <h3>{escapade.titre}</h3>
         <p>{escapade.prix} € par personne</p>
         <p>{escapade.description_principale}</p>
@@ -99,56 +59,13 @@ const EscapadeDetails: React.FC<{ escapade: Escapade }> = ({ escapade }) => {
         <p>{escapade.info_pratique}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className={styles.reservationForm}>
-        <h2>Réservation</h2>
-        <label>
-          Date de départ:
-          <input
-            type="date"
-            name="date_depart"
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-        <label>
-          Nombre d'adultes:
-          <input
-            type="number"
-            name="nombre_adulte"
-            onChange={handleInputChange}
-            required
-            min="1"
-          />
-        </label>
-        <label>
-          Nombre d'enfants:
-          <input
-            type="number"
-            name="nombre_enfant"
-            onChange={handleInputChange}
-            required
-            min="0"
-          />
-        </label>
-        <label>
-          Assurance annulation:
-          <input
-            type="checkbox"
-            name="assurance_annulation"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Prix total:
-          <input
-            type="number"
-            name="prix_total"
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-        <button type="submit">Réserver</button>
-      </form>
+      <div>
+        <h3>Réservation</h3>
+        <ReservationForm
+          escapadeId={escapade.id}
+          escapadePrice={escapade.prix}
+        />
+      </div>
     </div>
   );
 };
