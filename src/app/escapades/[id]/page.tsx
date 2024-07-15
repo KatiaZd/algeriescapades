@@ -9,6 +9,9 @@ type Escapade = {
   id: number;
   titre: string;
   description: string;
+  description_principale: string;
+  votre_escapade: string;
+  info_pratique: string;
   region: string;
   duree: number;
   prix: number;
