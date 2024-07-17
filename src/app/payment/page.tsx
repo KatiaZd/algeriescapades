@@ -2,49 +2,57 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
-import { Reservation } from "../../types"; 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+interface EscapadeDetails {
+  escapadeTitle: string;
+  date_depart: string;
+  nombre_adulte: number;
+  nombre_enfant: number;
+  prix_total: number;
+}
 
 const PaymentPage = () => {
   const { data: session } = useSession();
-  const [reservation, setReservation] = useState<Reservation | null>(null);
+  const [reservation, setReservation] = useState<EscapadeDetails | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (session) {
       fetch(`/api/reservation?userId=${session.user.id}`)
         .then((res) => res.json())
-        .then((data: Reservation) => {
+        .then((data) => {
           setReservation(data);
         })
         .catch((error) => {
           console.error("Error fetching reservation:", error);
         });
+    } else {
+      router.push("/login");
     }
-  }, [session]);
+  }, [session, router]);
 
   if (!session) {
-    return <p>You must be logged in to view this page.</p>;
+    return <p>Vous devez être connecté pour accéder à cette page.</p>;
   }
 
   if (!reservation) {
-    return <p>No reservation found. Please make a reservation first.</p>;
+    return <p>Chargement des détails de la réservation...</p>;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle payment logic here
-    // On success:
+    // Gérer la logique de paiement ici
+    // En cas de succès :
     // router.push('/confirmation');
   };
 
   return (
     <div>
       <h1>Paiement</h1>
-      <p>Escapade: {reservation.escapade.titre}</p>
-      <p>
-        Date de départ:{" "}
-        {new Date(reservation.availableDate.date).toLocaleDateString()}
-      </p>
+      <p>Escapade: {reservation.escapadeTitle}</p>
+      <p>Date de départ: {reservation.date_depart}</p>
       <p>Nombre d'adultes: {reservation.nombre_adulte}</p>
       <p>Nombre d'enfants: {reservation.nombre_enfant}</p>
       <p>Prix total: {reservation.prix_total} €</p>
@@ -52,21 +60,20 @@ const PaymentPage = () => {
         <input
           type="text"
           name="cardNumber"
-          placeholder="Card Number"
+          placeholder="Numéro de carte"
           required
         />
         <input
           type="text"
           name="cardExpiry"
-          placeholder="Card Expiry Date"
+          placeholder="Date d'expiration de la carte"
           required
         />
         <input type="text" name="cardCVC" placeholder="CVC" required />
-        <button type="submit">Pay</button>
+        <button type="submit">Payer</button>
       </form>
     </div>
   );
 };
 
 export default PaymentPage;
-
