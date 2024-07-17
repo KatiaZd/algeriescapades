@@ -1,5 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
+
+"use client";
+
 import React, { useState, useEffect, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface AvailableDate {
   id: number;
@@ -11,7 +16,10 @@ interface ReservationFormProps {
   escapadePrice: number;
 }
 
-const ReservationForm: React.FC<ReservationFormProps> = ({ escapadeId, escapadePrice }) => {
+const ReservationForm: React.FC<ReservationFormProps> = ({
+  escapadeId,
+  escapadePrice,
+}) => {
   const [adults, setAdults] = useState<number>(1);
   const [children, setChildren] = useState<number>(0);
   const [insurance, setInsurance] = useState<boolean>(false);
@@ -19,6 +27,9 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ escapadeId, escapadeP
   const [total, setTotal] = useState<number>(0);
   const [dates, setDates] = useState<AvailableDate[]>([]);
   const [selectedDate, setSelectedDate] = useState<number | undefined>();
+
+  const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchDates = async () => {
@@ -38,7 +49,8 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ escapadeId, escapadeP
   }, [escapadeId]);
 
   useEffect(() => {
-    let calculatedTotal = (adults * escapadePrice) + (children * (escapadePrice / 2));
+    let calculatedTotal =
+      adults * escapadePrice + children * (escapadePrice / 2);
     if (insurance) calculatedTotal += 20;
     setTotal(calculatedTotal);
   }, [adults, children, insurance, escapadePrice]);
@@ -49,8 +61,14 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ escapadeId, escapadeP
       alert("Vous devez accepter les CGV afin de continuer votre réservation");
       return;
     }
+
+    if (!session) {
+      router.push("/login");
+      return;
+    }
+
     const reservation = {
-      utilisateurId: 1, // Remplacez par l'ID de l'utilisateur connecté
+      utilisateurId: session.user.id,
       escapadeId,
       nombre_adulte: adults,
       nombre_enfant: children,
@@ -71,6 +89,9 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ escapadeId, escapadeP
 
       if (response.ok) {
         alert("Réservation réussie");
+        setTimeout(() => {
+          router.push("/payment");
+        }, 100);
       } else {
         alert("Erreur lors de la réservation");
       }
