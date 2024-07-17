@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
             />
           </Link>
           {session ? (
-            <Link href="/profile" className={styles.link}>
+            <Link href="/login" className={styles.link}>
               <Image
                 src="/assets/icons/user.png"
                 alt="Profile"
