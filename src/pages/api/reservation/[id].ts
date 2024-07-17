@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../../lib/prisma";
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,7 +18,6 @@ export default async function handler(
         accepter_conditions,
         prix_total,
         date_depart,
-        options, 
       } = req.body;
 
       console.log("Received data:", req.body);
@@ -47,11 +46,6 @@ export default async function handler(
             accepter_conditions,
             prix_total,
             date_depart,
-            options: {
-              create: options.map((optionId: number) => ({
-                optionId,
-              })),
-            },
           },
         });
         res.status(201).json(reservation);
