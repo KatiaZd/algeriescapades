@@ -15,8 +15,8 @@ const Navbar: React.FC = () => {
             <Image
               src="/assets/img/logo.png"
               alt="Algeriescapades"
-              width={160}
-              height={80}
+              width={180}
+              height={90}
             />
           </Link>
         </div>
@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
             <Image
               src="/assets/icons/heart.png"
               alt="Favorites"
-              width={30}
+              width={40}
               height={30}
               className={styles.icon}
             />
@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
               <Image
                 src="/assets/icons/user.png"
                 alt="Profile"
-                width={30}
+                width={40}
                 height={30}
                 className={styles.icon}
               />
