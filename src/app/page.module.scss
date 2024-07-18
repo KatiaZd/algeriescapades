@@ -1,12 +1,5 @@
 @import '../styles/variables.scss';
-@import '../styles/global.scss';
-
-// .body {
-//   margin: 0;
-//   padding: 0;
-//     -webkit-box-sizing: border-box;
-//           box-sizing: border-box;
-// }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 .hero {
   position: relative;
@@ -49,7 +42,11 @@
 
 .title {
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.catchPhrase {
+  margin-bottom: 25px;
 }
 
 .margin {
@@ -137,20 +134,39 @@
   font-size: 1rem;
   color: $blanc;
   background-color: $bleu-principal;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 5px;
   cursor: pointer;
-  -webkit-transition: background-color 0.5s ease;
-  -o-transition: background-color 0.5s ease;
-  transition: background-color 0.5s ease;
+  -webkit-transition: background-color 1s ease;
+  -o-transition: background-color 1s ease;
+  transition: background-color 1s ease;
   font-family: $font;
   
     &:hover {
       color: $bleu-principal;
+      border-color: $bleu-principal;
       background-color: $blanc;
     }
 }
 
+.cta {
+  padding: 0.8rem 1.8rem;
+  font-size: 1.2rem;
+  color: $blanc;
+  background-color: $bleu-principal;
+  font-family: $font;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+  color: $bleu-principal;
+  background-color: $blanc;
+  }
+}
 .noResults {
   color: $bleu-principal;
 }
