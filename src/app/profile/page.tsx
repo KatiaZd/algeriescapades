@@ -152,9 +152,9 @@ const ProfilePage = () => {
   return (
     <div>
       <h1>Welcome, {session.user.name}</h1>
-      <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleLogout}>Se déconnecter</button>
 
-      <h2>Your Reservation</h2>
+      <h2>Votre Reservation</h2>
       <p>Escapade: {reservation.escapade.titre}</p>
       <p>
         Date de départ:{" "}
@@ -179,7 +179,7 @@ const ProfilePage = () => {
           </div>
         ))
       ) : (
-        <p>No additional options available.</p>
+        <p>Pas d'option disponible</p>
       )}
 
       <button onClick={() => console.log("Cancel reservation logic here")}>

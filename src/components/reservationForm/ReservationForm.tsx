@@ -29,8 +29,8 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
   const [total, setTotal] = useState<number>(0);
   const [dates, setDates] = useState<AvailableDate[]>([]);
   const [selectedDate, setSelectedDate] = useState<number | undefined>();
-  const [options, setOptions] = useState<Option[]>([]);
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+  // const [options, setOptions] = useState<Option[]>([]);
+  // const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
 
   const { data: session } = useSession();
   const router = useRouter();
@@ -49,18 +49,18 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
       }
     };
 
-    const fetchOptions = async () => {
-      try {
-        const response = await fetch(`/api/escapades/${escapadeId}/options`);
-        const data: Option[] = await response.json();
-        setOptions(data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des options:", error);
-      }
-    };
+    // const fetchOptions = async () => {
+    //   try {
+    //     const response = await fetch(`/api/escapades/${escapadeId}/options`);
+    //     const data: Option[] = await response.json();
+    //     setOptions(data);
+    //   } catch (error) {
+    //     console.error("Erreur lors de la récupération des options:", error);
+    //   }
+    // };
 
     fetchDates();
-    fetchOptions();
+    // fetchOptions();
   }, [escapadeId]);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
       accepter_conditions: termsAccepted,
       prix_total: total,
       date_depart: selectedDate,
-      options: selectedOptions,
+      // options: selectedOptions,
     };
 
     try {
@@ -117,7 +117,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Date</label>
+        <label>1. Date de départ</label>
         <select
           value={selectedDate}
           onChange={(e) => setSelectedDate(Number(e.target.value))}
@@ -134,7 +134,8 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         </select>
       </div>
       <div>
-        <label>Nombre d'adultes</label>
+        <p>2. Nombre de voyageurs</p>
+        <label>Adultes</label>
         <input
           type="number"
           value={adults}
@@ -142,7 +143,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         />
       </div>
       <div>
-        <label>Nombre d'enfants</label>
+        <label>Enfants</label>
         <input
           type="number"
           value={children}
@@ -150,7 +151,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         />
       </div>
       <div>
-        <label>Assurance annulation</label>
+        <label>Assurance annulation - 20 €</label>
         <input
           type="checkbox"
           checked={insurance}
@@ -158,7 +159,10 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         />
       </div>
       <div>
-        <label>Accepter les CGV</label>
+        <label>
+          Je reconnais avoir pris connaissance et accepter les conditions
+          générales de vente et la politique de confidentialité.
+        </label>
         <input
           type="checkbox"
           checked={termsAccepted}
@@ -166,7 +170,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
           required
         />
       </div>
-      <div>
+      {/* <div>
         <label>Options supplémentaires</label>
         {options.map((option) => (
           <div key={option.id}>
@@ -187,7 +191,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
             </label>
           </div>
         ))}
-      </div>
+      </div> */}
       <div>
         <label>Total : {total} €</label>
       </div>

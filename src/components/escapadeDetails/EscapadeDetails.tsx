@@ -2,7 +2,8 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import styles from "./EscapadeDetails.module.scss";
+import styles from "../escapadeDetails/EscapadeDetails.module.scss"; 
+import ReservationForm from "../reservationForm/ReservationForm"; 
 
 type Escapade = {
   id: number;
@@ -20,38 +21,37 @@ type Escapade = {
 const EscapadeDetails: React.FC<{ escapade: Escapade }> = ({ escapade }) => {
   return (
     <div className={styles.detailsContainer}>
-      <div className={styles.description}>
-        <div className={styles.photos}>
-          {escapade.photo && escapade.photo.length > 0 ? (
-            escapade.photo.map((photo) => (
-              <Image
-                key={photo.id}
-                src={photo.url_photo}
-                alt={escapade.titre}
-                layout="fill"
-                objectFit="cover"
-              />
-            ))
-          ) : (
-            <Image
-              src="/img/default-photo.jpg"
-              alt="Image par défaut"
-              layout="fill"
-              objectFit="cover"
-            />
-          )}
+      <div className={styles.banner}>
+        <div className={styles.bannerContent}>
+          <h1>{escapade.titre}</h1>
+          <p>{escapade.prix} € par personne</p>
+          <p>{escapade.description}</p>
+          <button className={styles.cta}>Réserver</button>
         </div>
-        <h1>{escapade.titre}</h1>
-        <p>{escapade.prix} € par personne</p>
-        <p>{escapade.description}</p>
+        <Image
+          src={escapade.photo ? escapade.photo[0].url_photo : "/img/default-photo.jpg"}
+          alt={escapade.titre}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
 
-        <h3>{escapade.titre}</h3>
-        <p>{escapade.prix} € par personne</p>
-        <p>{escapade.description_principale}</p>
-        <h3>Votre escapade</h3>
-        <p>{escapade.votre_escapade}</p>
-        <h3>Infos pratiques</h3>
-        <p>{escapade.info_pratique}</p>
+      <div className={styles.mainContent}>
+        <div className={styles.textContent}>
+          <h2>{escapade.titre}</h2>
+          <p>{escapade.description_principale}</p>
+          <h3>Votre escapade</h3>
+          <p>{escapade.votre_escapade}</p>
+          <h3>Infos pratiques</h3>
+          <p>{escapade.info_pratique}</p>
+        </div>
+        <div className={styles.reservation}>
+          <h2>Réservation</h2>
+          <ReservationForm
+            escapadeId={escapade.id}
+            escapadePrice={escapade.prix}
+          />
+        </div>
       </div>
     </div>
   );
