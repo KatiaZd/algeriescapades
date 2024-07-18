@@ -1,12 +1,29 @@
-import '../styles/global.scss';
-import { Poppins } from "next/font/google";
-import ClientLayout from "../components/ClientLayout";
+// import '../styles/global.scss';
+// import { Poppins } from "next/font/google";
+// import ClientLayout from "../components/ClientLayout";
 
-const poppins = Poppins({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
+// const poppins = Poppins({
+//   weight: ["400", "700"],
+//   subsets: ["latin"],
+//   display: "swap",
+// });
+
+// export default function RootLayout({
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode;
+// }>) {
+//   return (
+//     <html lang="fr" className={poppins.className}>
+//       <body>
+//         <ClientLayout>{children}</ClientLayout>
+//       </body>
+//     </html>
+//   );
+// }
+
+import "../../src/styles/global.scss"; 
+import ClientLayout from "../components/ClientLayout";
 
 export default function RootLayout({
   children,
@@ -14,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={poppins.className}>
+    <html lang="fr">
       <body>
         <ClientLayout>{children}</ClientLayout>
       </body>

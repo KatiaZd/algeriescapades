@@ -1,6 +1,4 @@
 @import '../../styles/variables';
-@import '../../styles/global.scss';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 .modalOverlay {
   z-index: 5;
@@ -62,4 +60,6 @@
 
 .SubtitleFilter {
   font-weight: 400;
+  margin-bottom: 0.3rem;
+  margin-top: 0.8rem;
 }
