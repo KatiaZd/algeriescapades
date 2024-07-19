@@ -10,10 +10,15 @@ interface Escapade {
   prix: number;
 }
 
+interface AvailableDate {
+  id: number;
+  date: string;
+}
+
 interface Reservation {
   id: number;
   escapade: Escapade;
-  date_depart: string;
+  availableDate: AvailableDate;
   nombre_adulte: number;
   nombre_enfant: number;
   prix_total: number;
@@ -51,16 +56,14 @@ const ConfirmationPage = () => {
   }
 
   const reservation = reservations[0];
+  const parsedDate = new Date(reservation.availableDate.date);
 
   return (
     <div>
       <h1>Confirmation</h1>
       <p>Votre réservation est confirmée !</p>
       <p>Escapade: {reservation.escapade.titre}</p>
-      <p>
-        Date de départ:{" "}
-        {new Date(reservation.date_depart).toLocaleDateString("fr-FR")}
-      </p>
+      <p>Date de départ: {parsedDate.toLocaleDateString("fr-FR")}</p>
       <p>Nombre d'adultes: {reservation.nombre_adulte}</p>
       <p>Nombre d'enfants: {reservation.nombre_enfant}</p>
       <p>Prix total: {reservation.prix_total} €</p>
