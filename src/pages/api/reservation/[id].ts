@@ -20,8 +20,6 @@ export default async function handler(
         date_depart,
       } = req.body;
 
-      console.log("Received data:", req.body);
-
       if (
         !utilisateurId ||
         !escapadeId ||
@@ -65,7 +63,7 @@ export default async function handler(
       }
 
       try {
-        const reservation = await prisma.reservation.findFirst({
+        const reservations = await prisma.reservation.findMany({
           where: { utilisateurId: parseInt(userId as string, 10) },
           include: {
             escapade: true,
@@ -78,23 +76,43 @@ export default async function handler(
           },
         });
 
-        if (!reservation) {
+        if (!reservations || reservations.length === 0) {
           return res
             .status(404)
-            .json({ error: "No reservation found for this user" });
+            .json({ error: "No reservations found for this user" });
         }
 
-        res.status(200).json(reservation);
+        res.status(200).json(reservations);
       } catch (error) {
-        console.error("Error fetching reservation:", error);
+        console.error("Error fetching reservations:", error);
         res
           .status(500)
-          .json({ error: "Erreur lors de la récupération de la réservation" });
+          .json({ error: "Erreur lors de la récupération des réservations" });
+      }
+      break;
+
+    case "DELETE":
+      const { id } = req.query;
+
+      if (!id || Array.isArray(id)) {
+        return res.status(400).json({ error: "Invalid reservation ID" });
+      }
+
+      try {
+        await prisma.reservation.delete({
+          where: { id: parseInt(id as string, 10) },
+        });
+        res.status(204).end(); // No Content
+      } catch (error) {
+        console.error("Error deleting reservation:", error);
+        res
+          .status(500)
+          .json({ error: "Erreur lors de la suppression de la réservation" });
       }
       break;
 
     default:
-      res.setHeader("Allow", ["POST", "GET"]);
+      res.setHeader("Allow", ["POST", "GET", "DELETE"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 }

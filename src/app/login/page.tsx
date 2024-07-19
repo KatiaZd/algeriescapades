@@ -1,18 +1,26 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  if (session) {
+    router.push("/payment");
+    return null;
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signIn("credentials", {
       email,
       password,
-      callbackUrl: "/",
+      callbackUrl: "/payment",
     });
   };
 
@@ -22,23 +30,21 @@ const LoginPage = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
           required
         />
         <input
           type="password"
+          placeholder="Mot de passe"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Mot de passe"
           required
         />
         <button type="submit">Se connecter</button>
       </form>
-      <p>
-        Pas encore de compte ? <a href="/signup">Créer un compte</a>
-      </p>
+      <button onClick={() => router.push("/signup")}>Créer un compte</button>
     </div>
   );
 };
