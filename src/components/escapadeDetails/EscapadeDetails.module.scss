@@ -14,9 +14,11 @@
   max-width: 100%;  
   margin: 0 auto;
   font-family: "Poppins", sans-serif;
+
+  // @media (min-width: 768px) {
+  //   max-width: 1200px;  
+  // }
 }
-
-
 
 .banner {
   position: relative;
@@ -52,24 +54,26 @@
       margin: 10px 0;
     }
 
-    .cta {
-      padding: 0.8rem 1.8rem;
-      font-size: 1.2rem;
+    .reserveButton {
+      padding: 10px 20px;
+      background-color: #29adb23a;
       color: white;
-      background-color: #29ADB2;
-      font-family: 'Poppins';
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      -webkit-transition: background-color 0.3s ease;
-      -o-transition: background-color 0.3s ease;
-      transition: background-color 0.3s ease;
-      
-        &:hover {
-          color: #29ADB2;
-          background-color: white;
-        }
+      border: 5px solid red;
+
+      &:hover {
+        background-color: #16a085;
+      }
     }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 }
 
@@ -139,6 +143,12 @@
       margin-bottom: 20px;
     }
 
+    label {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
     input {
       width: 100%;
       padding: 10px;
@@ -146,6 +156,25 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+
+    .cta {
+  padding: 0.8rem 1.8rem;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #29ADB2;
+  font-family: 'Poppins';
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+  color: #29ADB2;
+  background-color: white;
+  }
+}
   }
 }
 
