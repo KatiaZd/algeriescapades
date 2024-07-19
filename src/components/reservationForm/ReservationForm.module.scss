@@ -1,0 +1,131 @@
+@import '../../styles/variables.scss';
+
+.dateSelection {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    -webkit-transition: border-color 0.3s;
+    -o-transition: border-color 0.3s;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #29adb2;
+      outline: none;
+    }
+
+    option {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+}
+
+.reservationForm {
+    .formGroup {
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+
+.insurance {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.terms {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 1rem;
+}
+
+.terms label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.terms input[type="checkbox"] {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+    .total {
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+  
+    .submitButton {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+              -webkit-box-align: center;
+                  -ms-flex-align: center;
+        align-items: center;
+                -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+        justify-content: center;
+
+    .cta {
+        padding: 0.8rem 1.8rem;
+        font-size: 1.2rem;
+        color: $blanc;
+        background-color: $bleu-principal;
+        font-family: $font;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+            -webkit-transition: background-color 0.3s ease;
+            -o-transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            color: $bleu-principal;
+            background-color: $blanc;
+        }
+    }
+        .noResults {
+            color: $bleu-principal;
+        }
+    }
+}
+.errorMessage {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.successMessage {
+  color: green;
+  margin-bottom: 1rem;
+}
