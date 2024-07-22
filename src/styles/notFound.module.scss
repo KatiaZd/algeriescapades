@@ -64,10 +64,9 @@
   background-color: #007575;
 }
 
-/* Media Queries for Desktop */
 @media (min-width: 768px) {
   .imageContainer img {
     -o-object-position: center;
-       object-position: center; /* Adjust the image to be centered on larger screens */
+       object-position: center; 
   }
 }
