@@ -2,7 +2,7 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import styles from './ReservationForm.module.scss'; // Import the styles
+import styles from './ReservationForm.module.scss';
 
 interface AvailableDate {
   id: number;
@@ -114,9 +114,11 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
       });
 
       if (response.ok) {
+        const data = await response.json();
         setSuccessMessage("Votre réservation a été effectuée avec succès.");
         setErrorMessage("");
-        router.push("/payment");
+        // Rediriger avec l'ID de la réservation
+        router.push(`/payment?reservationId=${data.id}`);
       } else {
         setErrorMessage("Erreur lors de la réservation");
       }

@@ -102,7 +102,7 @@ export default async function handler(
         await prisma.reservation.delete({
           where: { id: parseInt(id as string, 10) },
         });
-        res.status(204).end(); // No Content
+        res.status(204).end(); 
       } catch (error) {
         console.error("Error deleting reservation:", error);
         res
