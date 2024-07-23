@@ -137,7 +137,7 @@ const PaymentPage = () => {
           type="text"
           name="cardNumber"
           placeholder="Numéro de carte*"
-          pattern="\d{16}"
+          pattern="\d{8}"
           title="Le numéro de carte doit comporter 16 chiffres"
           required
         />
