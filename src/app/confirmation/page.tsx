@@ -3,6 +3,7 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import styles from "./ConfirmationPage.module.scss";
 
 interface Escapade {
   titre: string;
@@ -59,15 +60,19 @@ const ConfirmationPage = () => {
   const parsedDate = new Date(reservation.availableDate.date);
 
   return (
-    <div>
-      <h1>Confirmation</h1>
-      <p>Votre réservation est confirmée !</p>
-      <p>Escapade: {reservation.escapade.titre}</p>
-      <p>Date de départ: {parsedDate.toLocaleDateString("fr-FR")}</p>
-      <p>Nombre d'adultes: {reservation.nombre_adulte}</p>
-      <p>Nombre d'enfants: {reservation.nombre_enfant}</p>
-      <p>Prix total: {reservation.prix_total} €</p>
-      <a href="/profile">Voir mon escapade dans mon espace</a>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Confirmation</h1>
+      <p className={styles.message}>Votre réservation est confirmée !</p>
+      <div className={styles.details}>
+        <p>Escapade: {reservation.escapade.titre}</p>
+        <p>Date de départ: {parsedDate.toLocaleDateString("fr-FR")}</p>
+        <p>Nombre d'adultes: {reservation.nombre_adulte}</p>
+        <p>Nombre d'enfants: {reservation.nombre_enfant}</p>
+        <p>Prix total: {reservation.prix_total} €</p>
+      </div>
+      <a className={styles.cta} href="/profile">
+        Voir mon escapade dans mon espace
+      </a>
     </div>
   );
 };

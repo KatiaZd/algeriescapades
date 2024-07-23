@@ -1,0 +1,55 @@
+@import '../../styles/variables.scss';
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.details {
+  text-align: left;
+  font-size: 1em;
+  color: #555;
+}
+
+.details p {
+  margin: 5px 0px;
+  margin-bottom: 30px;
+}
+
+    .cta {
+        margin-top: 10px;
+        padding: 0.8rem 1.8rem;
+        font-size: 1.2rem;
+        color: $blanc;
+        background-color: $bleu-principal;
+        font-family: $font;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+            -webkit-transition: background-color 0.3s ease;
+            -o-transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            color: $bleu-principal;
+            background-color: $blanc;
+        }
+    }
