@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import styles from "./PaymentPage.module.scss";
 
 interface Photo {
   id: number;
@@ -58,11 +59,11 @@ const PaymentPage = () => {
   }, [session, router]);
 
   if (!session) {
-    return <p>Vous devez être connecté pour accéder à votre espace.</p>;
+    return <p className={styles.message}>Vous devez être connecté pour accéder à votre espace.</p>;
   }
 
   if (!reservation) {
-    return <p>Chargement des détails de la réservation...</p>;
+    return <p className={styles.message}>Chargement des détails de la réservation...</p>;
   }
 
   const handlePayment = async (event: React.FormEvent) => {
@@ -96,60 +97,64 @@ const PaymentPage = () => {
   const escapade = reservation.escapade;
 
   return (
-    <div>
-      <h1>Paiement</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Paiement</h1>
       {escapade ? (
         <>
           {escapade.photo && escapade.photo.length > 0 && (
             <Image
               src={escapade.photo[0].url_photo}
               alt={escapade.titre || "Escapade"}
-              width={100}
-              height={100}
+              width={200}
+              height={200}
               layout="fixed"
             />
           )}
-          <p>{escapade.titre}</p>
-          <p>
-            Départ le {parsedDate.toLocaleDateString("fr-FR")} pour{" "}
-            {escapade.duree} jours.
-          </p>
-          <p>
-            {reservation.nombre_adulte}{" "}
-            {reservation.nombre_adulte > 1 ? "adultes" : "adulte"}
-          </p>
-          <p>
-            {reservation.nombre_enfant}{" "}
-            {reservation.nombre_enfant > 1 ? "enfants" : "enfant"}
-          </p>
-          <p>
-            {reservation.assurance_annulation
-              ? "Avec assurance annulation"
-              : "Sans assurance annulation"}
-          </p>
-          <p>Total: {reservation.prix_total} €</p>
+          <div className={styles.escapadeDetails}>
+            <p>{escapade.titre}</p>
+            <p>
+              Départ le {parsedDate.toLocaleDateString("fr-FR")} pour {escapade.duree} jours.
+            </p>
+            <p>
+              {reservation.nombre_adulte}{" "}
+              {reservation.nombre_adulte > 1 ? "adultes" : "adulte"}
+            </p>
+            <p>
+              {reservation.nombre_enfant}{" "}
+              {reservation.nombre_enfant > 1 ? "enfants" : "enfant"}
+            </p>
+            <p>
+              {reservation.assurance_annulation
+                ? "Avec assurance annulation"
+                : "Sans assurance annulation"}
+            </p>
+            <p>Total: {reservation.prix_total} €</p>
+          </div>
         </>
       ) : (
-        <p>Chargement des détails de l'escapade...</p>
+        <p className={styles.message}>Chargement des détails de l'escapade...</p>
       )}
-      <form onSubmit={handlePayment}>
+      <form className={styles.paymentForm} onSubmit={handlePayment}>
         <input
+          className={styles.input}
           type="text"
           name="cardNumber"
           placeholder="Numéro de carte*"
-          pattern="\d{8}"
+          pattern="\d{16}"
           title="Le numéro de carte doit comporter 16 chiffres"
           required
         />
         <input
+          className={styles.input}
           type="text"
           name="cardExpiry"
           placeholder="Date d'expiration*"
-          pattern="(0[8-9]|1[0-2])\/2[4-9]"
-          title="La date d'expiration doit être au format MM/AA et comprise entre 08/24 et 08/29"
+          pattern="(0[1-9]|1[0-2])\/([0-9]{2})"
+          title="La date d'expiration doit être au format MM/AA"
           required
         />
         <input
+          className={styles.input}
           type="text"
           name="cardCVC"
           placeholder="CVV*"
@@ -157,8 +162,8 @@ const PaymentPage = () => {
           title="Le CVV doit comporter 3 chiffres"
           required
         />
-        <p>Titulaire de la carte</p>
         <input
+          className={styles.input}
           type="text"
           name="titulaireCarte"
           placeholder="Nom Prénom*"
@@ -166,7 +171,7 @@ const PaymentPage = () => {
           title="Le nom du titulaire ne doit comporter que des lettres"
           required
         />
-        <button type="submit">Payer</button>
+        <button className={styles.cta} type="submit">Payer</button>
       </form>
     </div>
   );
