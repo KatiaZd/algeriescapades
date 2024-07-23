@@ -1,0 +1,61 @@
+@import '../../styles/variables.scss';
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.cta {
+        padding: 0.8rem 1.8rem;
+        font-size: 1.2rem;
+        color: $blanc;
+        background-color: $bleu-principal;
+        font-family: $font;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+            -webkit-transition: background-color 0.3s ease;
+            -o-transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            color: $bleu-principal;
+            background-color: $blanc;
+        }
+    }
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
