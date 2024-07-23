@@ -93,7 +93,7 @@ export default async function handler(
       break;
 
     case "PATCH":
-      const { id } = req.query; // Déplacez cette ligne à l'intérieur du case "PATCH"
+      const { id } = req.query; 
 
       if (!id || Array.isArray(id)) {
         return res.status(400).json({ error: "Invalid reservation ID" });
@@ -145,7 +145,7 @@ export default async function handler(
       break;
 
     case "DELETE":
-      const { id: deleteId } = req.query; // Utilisez une variable différente pour DELETE
+      const { id: deleteId } = req.query; 
 
       if (!deleteId || Array.isArray(deleteId)) {
         return res.status(400).json({ error: "Invalid reservation ID" });
