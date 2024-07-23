@@ -1,4 +1,4 @@
- /* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -149,23 +149,35 @@ const ProfilePage = () => {
 
   if (reservations.length === 0) {
     return (
-      <div>
-        <h1>
+      <div className={styles.container}>
+        <h1 className={styles.title}>
           Bienvenue, {session.user.name} {session.user.prenom}
         </h1>
-        <button onClick={handleLogout}>Se déconnecter</button>
-        <p>Vous n'avez pas d'escapade réservée.</p>
-        <a href="/">Voir les escapades</a>
+        <button
+          className={`${styles.button} ${styles.logoutButton}`}
+          onClick={handleLogout}
+        >
+          Se déconnecter
+        </button>
+        <p className={styles.message}>Vous n'avez pas d'escapade réservée.</p>
+        <a className={styles.link} href="/">
+          Voir les escapades
+        </a>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>
         Bienvenue, {session.user.name} {session.user.prenom}
       </h1>
-      <button onClick={handleLogout}>Se déconnecter</button>
+      <button
+        className={`${styles.button} ${styles.logoutButton}`}
+        onClick={handleLogout}
+      >
+        Se déconnecter
+      </button>
 
       {reservations.map((reservation) => (
         <div key={reservation.id} className={styles.reservationBlock}>
@@ -183,39 +195,44 @@ const ProfilePage = () => {
               <p>Nombre d'enfants: {reservation.nombre_enfant}</p>
               <p>Prix total: {reservation.prix_total} €</p>
               <h2>Options supplémentaires</h2>
-              {optionsByReservation[reservation.id]?.length > 0 ? (
-                optionsByReservation[reservation.id].map((option) => (
-                  <div key={option.id}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={
-                          selectedOptions[reservation.id]?.includes(
-                            option.id
-                          ) || false
-                        }
-                        onChange={() =>
-                          handleOptionChange(reservation.id, option.id)
-                        }
-                      />
-                      {option.description} - {option.prix} €
-                    </label>
-                  </div>
-                ))
-              ) : (
-                <p>Pas d'option disponible</p>
-              )}
+              <div className={styles.options}>
+                {optionsByReservation[reservation.id]?.length > 0 ? (
+                  optionsByReservation[reservation.id].map((option) => (
+                    <div key={option.id}>
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={
+                            selectedOptions[reservation.id]?.includes(
+                              option.id
+                            ) || false
+                          }
+                          onChange={() =>
+                            handleOptionChange(reservation.id, option.id)
+                          }
+                        />
+                        {option.description} - {option.prix} €
+                      </label>
+                    </div>
+                  ))
+                ) : (
+                  <p>Pas d'option disponible</p>
+                )}
+              </div>
             </>
           ) : (
             <p>Chargement des détails de l'escapade...</p>
           )}
-          <button onClick={() => handleCancelReservation(reservation)}>
+          <button
+            className={styles.button}
+            onClick={() => handleCancelReservation(reservation)}
+          >
             Annuler la réservation
           </button>
         </div>
       ))}
 
-      {message && <p>{message}</p>}
+      {message && <p className={styles.message}>{message}</p>}
 
       {showModal && (
         <div className={styles.modal}>
@@ -226,8 +243,18 @@ const ProfilePage = () => {
             ) : (
               <p>Vous n'avez pas pris d'assurance annulation.</p>
             )}
-            <button onClick={confirmCancelReservation}>Oui</button>
-            <button onClick={() => setShowModal(false)}>Non</button>
+            <button
+              className={styles.button}
+              onClick={confirmCancelReservation}
+            >
+              Oui
+            </button>
+            <button
+              className={styles.button}
+              onClick={() => setShowModal(false)}
+            >
+              Non
+            </button>
           </div>
         </div>
       )}
@@ -236,8 +263,6 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-
 
 // import React, { useEffect, useState } from "react";
 // import { useRouter } from "next/navigation";
